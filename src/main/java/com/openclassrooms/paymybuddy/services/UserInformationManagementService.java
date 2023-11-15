@@ -20,4 +20,8 @@ public class UserInformationManagementService {
         return userRepository.findAll();
     }
 
+
+    public Integer getBalanceAccountByEmail(String email){
+        return userRepository.findBalanceAccountByEmail(email);
+    }
 }

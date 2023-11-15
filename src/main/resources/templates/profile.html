@@ -40,19 +40,22 @@
         </div>
         <div style="font-size: 25px; padding-top: 50px;">
             <div class="col-12 bg-light" style="padding: 50px 0 50px 50px;">
+                <h2>Personal information</h2>
                 <p>First Name: <span th:text="${user.firstName}"></span></p>
                 <p>Last Name: <span th:text="${user.lastName}"></span></p>
                 <p>Email : <span th:text="${user.email}"></span></p>
                 <p>Balance Account: <span th:text="${user.balanceAccount}"></span></p>
             </div>
             <div class="col-12 bg-light" style="margin-top:50px; padding: 50px 0 30px 50px;">
-                <p>credited your account Pay my buddy :</p>
-                <div class="col-1 bg-success text-white mx-auto text-center pt-1" style="border-radius: 10px;">
-                    <p>credit</p>
-                </div>
-                <p>debited your account Pay my buddy :</p>
-                <div class="col-1 bg-success text-white mx-auto text-center  pt-1" style="border-radius: 10px;">
-                    <p>debited</p>
+                <div>
+                    <h2>Account management</h2>
+
+                    <form>
+                        <label for="credit">credit</label>
+                        <input class="bg-white" style=" text-align: right;" type="number" id="credit" name="credit" placeholder="amount credited in euro ...">
+                        <label for="debit">debit</label>
+                        <input class="bg-white" style=" text-align: right;" type="number" id="debit" name="debit" placeholder="amount debited in euro...">
+                    </form>
                 </div>
             </div>
         </div>

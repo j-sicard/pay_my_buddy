@@ -17,7 +17,7 @@ public class ProfilePageController {
     @Autowired
     UserInformationManagementService userService;
 
-    @GetMapping(path = "user/{id}")
+    @GetMapping(path = "profile/{id}")
     public String getUserInformation(@PathVariable int id, Model model) {
         Optional<UserAccount> userOptional = userService.retrievalUserInformationById(id);
 
@@ -37,19 +37,4 @@ public class ProfilePageController {
     }
 
 
-
-
-
-    @GetMapping(value = "/allusers")
-    public Iterable<UserAccount> getAllUserInformation() {
-        Iterable<UserAccount> users = userService.getAllUserAccount();
-
-        if (users != null) {
-            System.out.println("Utilisateurs trouvés : " + users);
-            return users;
-        } else {
-            System.out.println("Utilisateurs non trouvés.");
-            return null;
-        }
-    }
 }
