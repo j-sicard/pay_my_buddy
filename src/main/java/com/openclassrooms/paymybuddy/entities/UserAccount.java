@@ -2,6 +2,7 @@
 package com.openclassrooms.paymybuddy.entities;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 @Entity
 @Table(name = "user_accounts")
@@ -11,6 +12,9 @@ public class UserAccount {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_account_pk")
     private Integer userAccountID;
+
+    @OneToOne(mappedBy = "userAccount", cascade = CascadeType.ALL)
+    private BankAccount bankAccount;
 
     @Column(name = "email")
     private String email;
@@ -25,13 +29,14 @@ public class UserAccount {
     private String lastName;
 
     @Column(name = "balance_account")
-    private Integer balanceAccount;
+    private BigDecimal balanceAccount;
 
     @Column(name = "billing")
     private Integer billing;
 
-    public UserAccount(Integer userAccountID, String email, String password, String firstName, String lastName, Integer balanceAccount, Integer billing) {
+    public UserAccount(Integer userAccountID, BankAccount bankAccount, String email, String password, String firstName, String lastName, BigDecimal balanceAccount, Integer billing) {
         this.userAccountID = userAccountID;
+        this.bankAccount = bankAccount;
         this.email = email;
         this.password = password;
         this.firstName = firstName;
@@ -40,14 +45,20 @@ public class UserAccount {
         this.billing = billing;
     }
 
-    public UserAccount(){}
-
     public Integer getUserAccountID() {
         return userAccountID;
     }
 
     public void setUserAccountID(Integer userAccountID) {
         this.userAccountID = userAccountID;
+    }
+
+    public BankAccount getBankAccount() {
+        return bankAccount;
+    }
+
+    public void setBankAccount(BankAccount bankAccount) {
+        this.bankAccount = bankAccount;
     }
 
     public String getEmail() {
@@ -82,11 +93,11 @@ public class UserAccount {
         this.lastName = lastName;
     }
 
-    public Integer getBalanceAccount() {
+    public BigDecimal getBalanceAccount() {
         return balanceAccount;
     }
 
-    public void setBalanceAccount(Integer balanceAccount) {
+    public void setBalanceAccount(BigDecimal balanceAccount) {
         this.balanceAccount = balanceAccount;
     }
 

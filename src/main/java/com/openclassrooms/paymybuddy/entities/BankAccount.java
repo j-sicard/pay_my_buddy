@@ -1,6 +1,7 @@
 package com.openclassrooms.paymybuddy.entities;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 @Entity
 @Table(name = "bank_accounts")
@@ -18,12 +19,12 @@ public class BankAccount {
     private String bankName;
 
     @Column(name = "account_number")
-    private Integer accountNumber;
+    private BigDecimal accountNumber;
 
     @Column(name = "balance_account")
-    private Integer balanceAccount;
+    private BigDecimal balanceAccount;
 
-    public BankAccount(Integer bankAccountID, UserAccount userAccount, String bankName, Integer accountNumber, Integer balanceAccount) {
+    public BankAccount(Integer bankAccountID, UserAccount userAccount, String bankName, BigDecimal accountNumber, BigDecimal balanceAccount) {
         this.bankAccountID = bankAccountID;
         this.userAccount = userAccount;
         this.bankName = bankName;
@@ -55,19 +56,19 @@ public class BankAccount {
         this.bankName = bankName;
     }
 
-    public Integer getAccountNumber() {
+    public BigDecimal getAccountNumber() {
         return accountNumber;
     }
 
-    public void setAccountNumber(Integer accountNumber) {
+    public void setAccountNumber(BigDecimal accountNumber) {
         this.accountNumber = accountNumber;
     }
 
-    public Integer getBalanceAccount() {
+    public BigDecimal getBalanceAccount() {
         return balanceAccount;
     }
 
-    public void setBalanceAccount(Integer balanceAccount) {
+    public void setBalanceAccount(BigDecimal balanceAccount) {
         this.balanceAccount = balanceAccount;
     }
 }
