@@ -1,74 +1,76 @@
 package com.openclassrooms.paymybuddy.entities;
 
-import javax.persistence.*;
 import java.math.BigDecimal;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "bank_accounts")
 public class BankAccount {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "bank_account_pk")
-    private Integer bankAccountID;
 
-    @OneToOne
-    @JoinColumn(name = "account_fk", referencedColumnName = "user_account_pk")
-    private UserAccount userAccount;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column()
+	private long id;
 
-    @Column(name = "bank_name")
-    private String bankName;
+	@Column()
+	private String name;
 
-    @Column(name = "account_number")
-    private BigDecimal accountNumber;
+	@Column()
+	private BigDecimal balance;
 
-    @Column(name = "balance_account")
-    private BigDecimal balanceAccount;
+	@ManyToOne()
+	@JoinColumn(name = "id_user_account")
+	private UserAccount userAccount;
 
-    public BankAccount(Integer bankAccountID, UserAccount userAccount, String bankName, BigDecimal accountNumber, BigDecimal balanceAccount) {
-        this.bankAccountID = bankAccountID;
-        this.userAccount = userAccount;
-        this.bankName = bankName;
-        this.accountNumber = accountNumber;
-        this.balanceAccount = balanceAccount;
-    }
+	public BankAccount() {
 
-    public Integer getBankAccountID() {
-        return bankAccountID;
-    }
+	}
 
-    public void setBankAccountID(Integer bankAccountID) {
-        this.bankAccountID = bankAccountID;
-    }
+	public BankAccount(long id, String name, BigDecimal balance) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.balance = balance;
+	}
 
-    public UserAccount getUserAccount() {
-        return userAccount;
-    }
+	public long getId() {
+		return id;
+	}
 
-    public void setUserAccount(UserAccount userAccount) {
-        this.userAccount = userAccount;
-    }
+	public void setId(long id) {
+		this.id = id;
+	}
 
-    public String getBankName() {
-        return bankName;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public void setBankName(String bankName) {
-        this.bankName = bankName;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public BigDecimal getAccountNumber() {
-        return accountNumber;
-    }
+	public BigDecimal getBalance() {
+		return balance;
+	}
 
-    public void setAccountNumber(BigDecimal accountNumber) {
-        this.accountNumber = accountNumber;
-    }
+	public void setBalance(BigDecimal balance) {
+		this.balance = balance;
+	}
 
-    public BigDecimal getBalanceAccount() {
-        return balanceAccount;
-    }
+	public UserAccount getUserAccount() {
+		return userAccount;
+	}
 
-    public void setBalanceAccount(BigDecimal balanceAccount) {
-        this.balanceAccount = balanceAccount;
-    }
+	public void setUserAccount(UserAccount userAccount) {
+		this.userAccount = userAccount;
+	}
 }
+

@@ -1,112 +1,125 @@
 
 package com.openclassrooms.paymybuddy.entities;
 
-import javax.persistence.*;
+import com.openclassrooms.paymybuddy.bo.UserAccountBO;
+
 import java.math.BigDecimal;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import javax.persistence.*;
 
 @Entity
 @Table(name = "user_accounts")
 public class UserAccount {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_account_pk")
-    private Integer userAccountID;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column()
+	private long id;
 
-    @OneToOne(mappedBy = "userAccount", cascade = CascadeType.ALL)
-    private BankAccount bankAccount;
+	@Column()
+	private String email;
 
-    @Column(name = "email")
-    private String email;
+	@Column()
+	private String password;
 
-    @Column(name = "password")
-    private String password;
+	@Column(name = "first_name")
+	private String firstName;
 
-    @Column(name = "first_name")
-    private String firstName;
+	@Column(name = "last_name")
+	private String lastName;
 
-    @Column(name = "last_name")
-    private String lastName;
+	@Column()
+	private BigDecimal balance;
 
-    @Column(name = "balance_account")
-    private BigDecimal balanceAccount;
+	@OneToMany(mappedBy = "userAccount")
+	private List<BankAccount> bankAccounts;
 
-    @Column(name = "billing")
-    private Integer billing;
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(
+			name = "user_account_friends",
+			joinColumns = @JoinColumn(name = "user_account_id"),
+			inverseJoinColumns = @JoinColumn(name = "friend_account_id")
+	)
+	private Set<FriendAccount> friends = new HashSet<>();
 
-    public UserAccount(Integer userAccountID, BankAccount bankAccount, String email, String password, String firstName, String lastName, BigDecimal balanceAccount, Integer billing) {
-        this.userAccountID = userAccountID;
-        this.bankAccount = bankAccount;
-        this.email = email;
-        this.password = password;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.balanceAccount = balanceAccount;
-        this.billing = billing;
-    }
+	public UserAccount(long id, String email, String password, String firstName, String lastName, BigDecimal balance, List<BankAccount> bankAccounts, Set<FriendAccount> friends) {
+		this.id = id;
+		this.email = email;
+		this.password = password;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.balance = balance;
+		this.bankAccounts = bankAccounts;
+		this.friends = friends;
+	}
 
-    public Integer getUserAccountID() {
-        return userAccountID;
-    }
+	public UserAccount() {
+	}
 
-    public void setUserAccountID(Integer userAccountID) {
-        this.userAccountID = userAccountID;
-    }
+	public long getId() {
+		return id;
+	}
 
-    public BankAccount getBankAccount() {
-        return bankAccount;
-    }
+	public void setId(long id) {
+		this.id = id;
+	}
 
-    public void setBankAccount(BankAccount bankAccount) {
-        this.bankAccount = bankAccount;
-    }
+	public String getEmail() {
+		return email;
+	}
 
-    public String getEmail() {
-        return email;
-    }
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+	public String getPassword() {
+		return password;
+	}
 
-    public String getPassword() {
-        return password;
-    }
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+	public String getFirstName() {
+		return firstName;
+	}
 
-    public String getFirstName() {
-        return firstName;
-    }
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
+	public String getLastName() {
+		return lastName;
+	}
 
-    public String getLastName() {
-        return lastName;
-    }
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
+	public BigDecimal getBalance() {
+		return balance;
+	}
 
-    public BigDecimal getBalanceAccount() {
-        return balanceAccount;
-    }
+	public void setBalance(BigDecimal balance) {
+		this.balance = balance;
+	}
 
-    public void setBalanceAccount(BigDecimal balanceAccount) {
-        this.balanceAccount = balanceAccount;
-    }
+	public List<BankAccount> getBankAccounts() {
+		return bankAccounts;
+	}
 
-    public Integer getBilling() {
-        return billing;
-    }
+	public void setBankAccounts(List<BankAccount> bankAccounts) {
+		this.bankAccounts = bankAccounts;
+	}
 
-    public void setBilling(Integer billing) {
-        this.billing = billing;
-    }
+	public Set<FriendAccount> getFriends() {
+		return friends;
+	}
+
+	public void setFriends(Set<FriendAccount> friends) {
+		this.friends = friends;
+	}
 }
-
