@@ -71,3 +71,16 @@ INSERT INTO bank_accounts(id, name, balance, id_user_account) VALUES(28, 'Bourso
 INSERT INTO user_accounts(id, email, password, first_name, last_name, balance) VALUES(15, 'testCredit@test.fr', 'passwordtestGetUser', 'FirstNametestGetUser', 'LastNametestGetUser', 100);
 INSERT INTO bank_accounts(id, name, balance, id_user_account) VALUES(29, 'Caisse d''epargne', 20, 15);
 INSERT INTO bank_accounts(id, name, balance, id_user_account) VALUES(30, 'Boursorama', 200, 15);
+-- UserAccountServiceTest:: testGetUserByEmail
+INSERT INTO user_accounts(id, email, password, first_name, last_name, balance) VALUES(16, 'testgetUserByEmail@test.fr', 'passwordtestGetUser', 'FirstNamegetUserByEmail', 'LastNamegetUserByEmail', 100);
+INSERT INTO bank_accounts(id, name, balance, id_user_account) VALUES(31, 'Caisse d''epargne', 20, 16);
+INSERT INTO bank_accounts(id, name, balance, id_user_account) VALUES(32, 'Boursorama', 200, 16);
+--
+-- UserFriendBusinessServiceTest
+-- UserFriendBusinessServiceTest::testAddNewFriend
+INSERT INTO user_accounts(id, email, password, first_name, last_name, balance) VALUES(17, 'testAddNewFriend@test.fr', 'password', 'testName', 'testLastName', 100);
+INSERT INTO bank_accounts(id, name, balance, id_user_account) VALUES(33, 'Caisse d''epargne', 20, 17);
+INSERT INTO bank_accounts(id, name, balance, id_user_account) VALUES(34, 'Boursorama', 200, 17);
+INSERT INTO user_accounts(id, email, password, first_name, last_name, balance) VALUES(18, 'NewFriend@test.fr', 'password', 'NewFriend', 'testLastName', 100);
+INSERT INTO bank_accounts(id, name, balance, id_user_account) VALUES(35, 'Caisse d''epargne', 20, 18);
+INSERT INTO bank_accounts(id, name, balance, id_user_account) VALUES(36, 'Boursorama', 200, 18);

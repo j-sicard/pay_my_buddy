@@ -1,5 +1,6 @@
 package com.openclassrooms.paymybuddy.business;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.math.BigDecimal;
@@ -44,6 +45,6 @@ class TransferBusinessServiceTest extends AbstractConfigurationTest{
 
 	@Test
 	void  getProfileUserByEmailSuccess(){
-		assertTrue(transferBusinessService.getProfileUserByEmail(8).getFirst_name().compareTo("getProfileUserByEmailSuccess") == 0);
+		assertTrue(transferBusinessService.getProfileUserByID(8).getFirst_name().compareTo("getProfileUserByEmailSuccess") == 0);
 	}
 }

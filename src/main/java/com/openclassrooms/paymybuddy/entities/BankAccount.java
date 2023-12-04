@@ -1,5 +1,7 @@
 package com.openclassrooms.paymybuddy.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import java.math.BigDecimal;
 
 import javax.persistence.Column;
@@ -26,19 +28,20 @@ public class BankAccount {
 	@Column()
 	private BigDecimal balance;
 
+	@JsonBackReference
 	@ManyToOne()
 	@JoinColumn(name = "id_user_account")
 	private UserAccount userAccount;
-
-	public BankAccount() {
-
-	}
 
 	public BankAccount(long id, String name, BigDecimal balance) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.balance = balance;
+	}
+
+	public BankAccount() {
+
 	}
 
 	public long getId() {

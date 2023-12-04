@@ -49,7 +49,7 @@ public class UserAccountController {
 
 	@GetMapping("{id}/user")
 	public UserVO profileUser(@PathVariable("id")long id) {
-		return   transferBusinessService.getProfileUserByEmail(id);
+		return   transferBusinessService.getProfileUserByID(id);
 	}
 }
 

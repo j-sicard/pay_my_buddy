@@ -2,6 +2,8 @@ package com.openclassrooms.paymybuddy.services.impl;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
@@ -55,5 +57,25 @@ public class UserAccountServiceImpl implements UserAccountService {
 		account.setBalance(account.getBalance().add(amount));
 		userAccountRepository.save(account);
 		return account.getBalance();
+	}
+
+	@Override
+	public UserAccount getUserByEmail(String email){
+		return userAccountRepository.findByEmail(email);
+	}
+
+
+	@Override
+	public Set<UserAccount> getFriends(long userId){
+		return  userAccountRepository.findById(userId).get().getAllFriends();
+	}
+
+	public UserAccount getFriendWithID(long userID, long friendID){
+		for (UserAccount friend : userAccountRepository.findById(userID).get().getAllFriends()) {
+			if (Objects.equals(friend.getId(), friendID)){
+				return friend;
+			}
+		}
+		return null;
 	}
 }

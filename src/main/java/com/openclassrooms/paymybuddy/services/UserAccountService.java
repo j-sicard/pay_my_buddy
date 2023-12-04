@@ -2,6 +2,7 @@ package com.openclassrooms.paymybuddy.services;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Set;
 
 import com.openclassrooms.paymybuddy.bo.BankAccountBO;
 import com.openclassrooms.paymybuddy.entities.UserAccount;
@@ -17,5 +18,12 @@ public interface UserAccountService {
 	public List<BankAccountBO> findBankAccounts(long id);
 
 	public  BigDecimal credit(long idUser, BigDecimal amount);
+
+	public Set<UserAccount> getFriends(long userId);
+
+	public UserAccount getUserByEmail(String email);
+
+	public UserAccount getFriendWithID(long userID, long friendID);
+
 }
 

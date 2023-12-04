@@ -3,6 +3,7 @@ package com.openclassrooms.paymybuddy.business;
 import java.math.BigDecimal;
 
 import com.openclassrooms.paymybuddy.bo.UserAccountBO;
+import com.openclassrooms.paymybuddy.entities.UserAccount;
 import com.openclassrooms.paymybuddy.vo.UserVO;
 
 public interface TransferBusinessService {
@@ -11,7 +12,10 @@ public interface TransferBusinessService {
 
 	public UserAccountBO withdrawBankToAccount(long idUser, BigDecimal amount, long bankAccountId);
 
-	public UserVO getProfileUserByEmail(long idUser);
+	public UserVO getProfileUserByID(long idUser);
+
+
+
 }
 
 

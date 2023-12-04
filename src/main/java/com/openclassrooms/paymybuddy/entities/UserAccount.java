@@ -1,7 +1,7 @@
 
 package com.openclassrooms.paymybuddy.entities;
 
-import com.openclassrooms.paymybuddy.bo.UserAccountBO;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import java.math.BigDecimal;
 import java.util.HashSet;
@@ -37,15 +37,16 @@ public class UserAccount {
 	@OneToMany(mappedBy = "userAccount")
 	private List<BankAccount> bankAccounts;
 
-	@ManyToMany(cascade = CascadeType.ALL)
+	@JsonBackReference
+	@ManyToMany
 	@JoinTable(
 			name = "user_account_friends",
 			joinColumns = @JoinColumn(name = "user_account_id"),
-			inverseJoinColumns = @JoinColumn(name = "friend_account_id")
+			inverseJoinColumns = @JoinColumn(name = "friend_user_account_id")
 	)
-	private Set<FriendAccount> friends = new HashSet<>();
+	private Set<UserAccount> friends = new HashSet<>();
 
-	public UserAccount(long id, String email, String password, String firstName, String lastName, BigDecimal balance, List<BankAccount> bankAccounts, Set<FriendAccount> friends) {
+	public UserAccount(long id, String email, String password, String firstName, String lastName, BigDecimal balance, List<BankAccount> bankAccounts, Set<UserAccount> friends) {
 		this.id = id;
 		this.email = email;
 		this.password = password;
@@ -115,11 +116,11 @@ public class UserAccount {
 		this.bankAccounts = bankAccounts;
 	}
 
-	public Set<FriendAccount> getFriends() {
+	public Set<UserAccount> getAllFriends() {
 		return friends;
 	}
 
-	public void setFriends(Set<FriendAccount> friends) {
+	public void setFriends(Set<UserAccount> friends) {
 		this.friends = friends;
 	}
 }

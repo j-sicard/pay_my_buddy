@@ -68,4 +68,9 @@ class UserAccountServiceTest extends AbstractConfigurationTest{
 		assertTrue(userAccountService.credit( 15L, new BigDecimal(50)).compareTo(new BigDecimal(150)) ==0);
 	}
 
+	@Test
+	void  testGetUserByEmail(){
+		assertTrue(userAccountService.getUserByEmail("testgetUserByEmail@test.fr").getFirstName().compareTo("FirstNamegetUserByEmail") == 0);
+	}
+
 }

@@ -42,10 +42,11 @@ public class TransferBusinessServiceImpl implements TransferBusinessService {
 		);
 	}
 
-	public UserVO getProfileUserByEmail(long idUser){
+	public UserVO getProfileUserByID(long idUser){
 		UserAccount userAccount = userAccountService.getUser(idUser);
 		UserVO userProfile = new UserVO(userAccount.getId(), userAccount.getFirstName(), userAccount.getLastName(), userAccount.getBalance());
 		return userProfile;
 	};
+
 
 }
