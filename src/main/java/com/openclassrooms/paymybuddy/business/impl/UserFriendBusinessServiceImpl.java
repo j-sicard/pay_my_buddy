@@ -38,7 +38,13 @@ public class UserFriendBusinessServiceImpl implements UserFriendBusinessService 
     }
 
     @Transactional
-    public UserAccount debitAccount(long userID, BigDecimal amount){
-        return userAccountService.withdraw(userID, amount);
+    @Override
+        public UserAccount debitAccount(long userID, long friendID,  BigDecimal amount){
+        BigDecimal balance = userAccountService.getBalance(userID);
+        UserAccount user = userAccountService.withdraw(userID, amount);
+        if (balance.compareTo(user.getBalance()) == -1){
+            userAccountService.credit(userAccountService.getFriendWithID(userID, friendID).getId(), amount );
+        }
+        return user;
     }
 }

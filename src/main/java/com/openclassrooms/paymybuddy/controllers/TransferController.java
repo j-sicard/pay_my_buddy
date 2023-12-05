@@ -32,9 +32,7 @@ public class TransferController {
 
     @PostMapping("/paymybuddy")
     public UserAccount payMyBuddy(@RequestBody FriendTransferFO friendTransferFO){
-          userFriendBusinessService.creditFriendAcount(friendTransferFO.getUserID(), friendTransferFO.getFriendID(), friendTransferFO.getAmount());
-          return userFriendBusinessService.debitAccount(friendTransferFO.getUserID(), friendTransferFO.getAmount());
-
+          return userFriendBusinessService.debitAccount(friendTransferFO.getUserID(), friendTransferFO.getFriendID(), friendTransferFO.getAmount());
     }
 
 }

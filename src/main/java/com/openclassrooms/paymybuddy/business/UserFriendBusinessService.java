@@ -12,6 +12,7 @@ public interface UserFriendBusinessService {
 
     public  UserAccount getFriendByID(long userID, long friendID);
 
-    public UserAccount debitAccount(long userID, BigDecimal amount);
+
+    public UserAccount debitAccount(long userID, long friendID,  BigDecimal amount);
 
 }
