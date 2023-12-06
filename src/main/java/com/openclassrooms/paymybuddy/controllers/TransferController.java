@@ -1,14 +1,16 @@
 package com.openclassrooms.paymybuddy.controllers;
 
-import com.openclassrooms.paymybuddy.business.TransferBusinessService;
 import com.openclassrooms.paymybuddy.business.UserFriendBusinessService;
 import com.openclassrooms.paymybuddy.entities.UserAccount;
 import com.openclassrooms.paymybuddy.fo.FriendFO;
-import com.openclassrooms.paymybuddy.fo.FriendTransferFO;
+import com.openclassrooms.paymybuddy.fo.UserToUserTranferFO;
+import com.openclassrooms.paymybuddy.services.UserAccountService;
+import com.openclassrooms.paymybuddy.vo.FriendVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.math.BigDecimal;
+import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/transfers")
@@ -19,20 +21,23 @@ public class TransferController {
     @Autowired
     UserFriendBusinessService userFriendBusinessService;
 
+
+
     @PostMapping("/addFriend")
     public String addFriendList(@RequestBody FriendFO friendFO){
         return userFriendBusinessService.addNewFriend(friendFO.getUserID(), friendFO.getFriendEmail());
     }
 
-    @GetMapping("/friend/{userID}/{friendID}")
-    public UserAccount getfriend(@PathVariable long userID, @PathVariable long friendID){
-        return userFriendBusinessService.getFriendByID(userID, friendID);
+    @GetMapping("/friend/{userID}")
+    public List<FriendVO> getfriends(@PathVariable long userID){
+        return userFriendBusinessService.getAllFriends(userID);
     }
 
 
     @PostMapping("/paymybuddy")
-    public UserAccount payMyBuddy(@RequestBody FriendTransferFO friendTransferFO){
-          return userFriendBusinessService.debitAccount(friendTransferFO.getUserID(), friendTransferFO.getFriendID(), friendTransferFO.getAmount());
+    public String payMyBuddy(@RequestBody UserToUserTranferFO userToUserTranferFO){
+          return userFriendBusinessService.debitAccount(userToUserTranferFO.getSenderID(), userToUserTranferFO.getReceiverID(),
+                  userToUserTranferFO.getAmount(), userToUserTranferFO.getDescription());
     }
 
 }

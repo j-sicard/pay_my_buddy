@@ -17,13 +17,15 @@ public interface UserAccountService {
 
 	public List<BankAccountBO> findBankAccounts(long id);
 
-	public  BigDecimal credit(long idUser, BigDecimal amount);
+	public boolean credit(long idUser, BigDecimal amount);
 
 	public Set<UserAccount> getFriends(long userId);
 
 	public UserAccount getUserByEmail(String email);
 
 	public UserAccount getFriendWithID(long userID, long friendID);
+
+	public boolean debitedUser(Long idUser, BigDecimal amount);
 
 }
 

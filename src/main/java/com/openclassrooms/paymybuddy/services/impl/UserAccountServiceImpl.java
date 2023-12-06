@@ -2,6 +2,7 @@ package com.openclassrooms.paymybuddy.services.impl;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -52,12 +53,18 @@ public class UserAccountServiceImpl implements UserAccountService {
 				(o -> new BankAccountBO(o.getId(), o.getName(), o.getBalance())).collect(Collectors.toList());
 	}
 
-	public  BigDecimal credit(long idUser, BigDecimal amount){
-		UserAccount account = userAccountRepository.findById(idUser).get();
-		account.setBalance(account.getBalance().add(amount));
-		userAccountRepository.save(account);
-		return account.getBalance();
+	public boolean credit(long idUser, BigDecimal amount) {
+		try {
+			UserAccount account = userAccountRepository.findById(idUser).orElseThrow(() -> new NoSuchElementException("User not found"));
+			account.setBalance(account.getBalance().add(amount));
+			userAccountRepository.save(account);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
+
 
 	@Override
 	public UserAccount getUserByEmail(String email){
@@ -67,15 +74,32 @@ public class UserAccountServiceImpl implements UserAccountService {
 
 	@Override
 	public Set<UserAccount> getFriends(long userId){
-		return  userAccountRepository.findById(userId).get().getAllFriends();
+		return  userAccountRepository.findById(userId).get().getFriends();
 	}
 
 	public UserAccount getFriendWithID(long userID, long friendID){
-		for (UserAccount friend : userAccountRepository.findById(userID).get().getAllFriends()) {
+		for (UserAccount friend : userAccountRepository.findById(userID).get().getFriends()) {
 			if (Objects.equals(friend.getId(), friendID)){
 				return friend;
 			}
 		}
 		return null;
 	}
+
+	public boolean debitedUser(Long idUser, BigDecimal amount) {
+		try {
+			UserAccount userAccount = userAccountRepository.findById(idUser).orElseThrow(() -> new NoSuchElementException("User not found"));
+
+			BigDecimal balance = userAccount.getBalance();
+			balance = balance.subtract(amount);
+			userAccount.setBalance(balance);
+
+			userAccountRepository.save(userAccount);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
 }

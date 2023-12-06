@@ -65,7 +65,7 @@ class UserAccountServiceTest extends AbstractConfigurationTest{
 
 	@Test
 	void testCredit(){
-		assertTrue(userAccountService.credit( 15L, new BigDecimal(50)).compareTo(new BigDecimal(150)) ==0);
+		assertEquals(userAccountService.credit( 15L, new BigDecimal(50)), true);
 	}
 
 	@Test

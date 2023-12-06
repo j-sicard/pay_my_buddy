@@ -2,6 +2,7 @@
 package com.openclassrooms.paymybuddy.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.math.BigDecimal;
 import java.util.HashSet;
@@ -37,7 +38,7 @@ public class UserAccount {
 	@OneToMany(mappedBy = "userAccount")
 	private List<BankAccount> bankAccounts;
 
-	@JsonBackReference
+	@JsonIgnore
 	@ManyToMany
 	@JoinTable(
 			name = "user_account_friends",
@@ -46,7 +47,18 @@ public class UserAccount {
 	)
 	private Set<UserAccount> friends = new HashSet<>();
 
-	public UserAccount(long id, String email, String password, String firstName, String lastName, BigDecimal balance, List<BankAccount> bankAccounts, Set<UserAccount> friends) {
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(
+			name = "user_account_transfers",
+			joinColumns = @JoinColumn(name = "sender_user_account_id"),
+			inverseJoinColumns = @JoinColumn(name = "receiver_user_account_id")
+	)
+	private Set<UserAccount> transferRecipients = new HashSet<>();
+
+	@ManyToMany(mappedBy = "transferRecipients")
+	private Set<UserAccount> transferSenders = new HashSet<>();
+
+	public UserAccount(long id, String email, String password, String firstName, String lastName, BigDecimal balance, List<BankAccount> bankAccounts, Set<UserAccount> friends, Set<UserAccount> transferRecipients, Set<UserAccount> transferSenders) {
 		this.id = id;
 		this.email = email;
 		this.password = password;
@@ -55,6 +67,8 @@ public class UserAccount {
 		this.balance = balance;
 		this.bankAccounts = bankAccounts;
 		this.friends = friends;
+		this.transferRecipients = transferRecipients;
+		this.transferSenders = transferSenders;
 	}
 
 	public UserAccount() {
@@ -116,11 +130,27 @@ public class UserAccount {
 		this.bankAccounts = bankAccounts;
 	}
 
-	public Set<UserAccount> getAllFriends() {
+	public Set<UserAccount> getFriends() {
 		return friends;
 	}
 
 	public void setFriends(Set<UserAccount> friends) {
 		this.friends = friends;
+	}
+
+	public Set<UserAccount> getTransferRecipients() {
+		return transferRecipients;
+	}
+
+	public void setTransferRecipients(Set<UserAccount> transferRecipients) {
+		this.transferRecipients = transferRecipients;
+	}
+
+	public Set<UserAccount> getTransferSenders() {
+		return transferSenders;
+	}
+
+	public void setTransferSenders(Set<UserAccount> transferSenders) {
+		this.transferSenders = transferSenders;
 	}
 }
