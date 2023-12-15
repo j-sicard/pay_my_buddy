@@ -1,25 +1,25 @@
 package com.openclassrooms.paymybuddy.entities;
 
-
 import javax.persistence.*;
 import java.math.BigDecimal;
 
+
 @Entity
 @Table(name = "transfers")
-public class Transfer {
+public class Transfer{
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column()
-    private long id;
 
-    @ManyToOne
-    @JoinColumn(name = "sender_user_account_id")
-    private UserAccount sender;
+   @Id
+   @GeneratedValue(strategy = GenerationType.IDENTITY)
+   @Column(name = "transfer_id")
+   private long id;
 
-    @ManyToOne
-    @JoinColumn(name = "receiver_user_account_id")
-    private UserAccount receiver;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "userId", nullable = false)
+    private UserAccount user;
+
+    @Column
+    private String receiverFirstName;
 
     @Column
     private String description;
@@ -27,12 +27,16 @@ public class Transfer {
     @Column
     private BigDecimal amount;
 
-    public Transfer(long id, UserAccount sender, UserAccount receiver, String description, BigDecimal amount) {
+    @Column
+    private  BigDecimal costs;
+
+    public Transfer(long id, UserAccount user, String receiverFirstName, String description, BigDecimal amount, BigDecimal costs) {
         this.id = id;
-        this.sender = sender;
-        this.receiver = receiver;
+        this.user = user;
+        this.receiverFirstName = receiverFirstName;
         this.description = description;
         this.amount = amount;
+        this.costs = costs;
     }
 
     public Transfer() {
@@ -46,20 +50,20 @@ public class Transfer {
         this.id = id;
     }
 
-    public UserAccount getSender() {
-        return sender;
+    public UserAccount getUser() {
+        return user;
     }
 
-    public void setSender(UserAccount sender) {
-        this.sender = sender;
+    public void setUser(UserAccount user) {
+        this.user = user;
     }
 
-    public UserAccount getReceiver() {
-        return receiver;
+    public String getReceiverFirstName() {
+        return receiverFirstName;
     }
 
-    public void setReceiver(UserAccount receiver) {
-        this.receiver = receiver;
+    public void setReceiverFirstName(String receiverFirstName) {
+        this.receiverFirstName = receiverFirstName;
     }
 
     public String getDescription() {
@@ -76,5 +80,13 @@ public class Transfer {
 
     public void setAmount(BigDecimal amount) {
         this.amount = amount;
+    }
+
+    public BigDecimal getCosts() {
+        return costs;
+    }
+
+    public void setCosts(BigDecimal costs) {
+        this.costs = costs;
     }
 }

@@ -102,4 +102,8 @@ public class UserAccountServiceImpl implements UserAccountService {
 		}
 	}
 
+	public void saveUser(UserAccount userAccount){
+		userAccountRepository.save(userAccount);
+	}
+
 }

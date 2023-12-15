@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -47,18 +48,12 @@ public class UserAccount {
 	)
 	private Set<UserAccount> friends = new HashSet<>();
 
-	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(
-			name = "user_account_transfers",
-			joinColumns = @JoinColumn(name = "sender_user_account_id"),
-			inverseJoinColumns = @JoinColumn(name = "receiver_user_account_id")
-	)
-	private Set<UserAccount> transferRecipients = new HashSet<>();
+	@OneToMany(cascade = CascadeType.ALL,
+			fetch = FetchType.LAZY,
+			mappedBy = "user")
+	private List<Transfer> transactions = new ArrayList<>();
 
-	@ManyToMany(mappedBy = "transferRecipients")
-	private Set<UserAccount> transferSenders = new HashSet<>();
-
-	public UserAccount(long id, String email, String password, String firstName, String lastName, BigDecimal balance, List<BankAccount> bankAccounts, Set<UserAccount> friends, Set<UserAccount> transferRecipients, Set<UserAccount> transferSenders) {
+	public UserAccount(long id, String email, String password, String firstName, String lastName, BigDecimal balance, List<BankAccount> bankAccounts, Set<UserAccount> friends, List<Transfer> transactions) {
 		this.id = id;
 		this.email = email;
 		this.password = password;
@@ -67,8 +62,7 @@ public class UserAccount {
 		this.balance = balance;
 		this.bankAccounts = bankAccounts;
 		this.friends = friends;
-		this.transferRecipients = transferRecipients;
-		this.transferSenders = transferSenders;
+		this.transactions = transactions;
 	}
 
 	public UserAccount() {
@@ -138,19 +132,11 @@ public class UserAccount {
 		this.friends = friends;
 	}
 
-	public Set<UserAccount> getTransferRecipients() {
-		return transferRecipients;
+	public List<Transfer> getTransactions() {
+		return transactions;
 	}
 
-	public void setTransferRecipients(Set<UserAccount> transferRecipients) {
-		this.transferRecipients = transferRecipients;
-	}
-
-	public Set<UserAccount> getTransferSenders() {
-		return transferSenders;
-	}
-
-	public void setTransferSenders(Set<UserAccount> transferSenders) {
-		this.transferSenders = transferSenders;
+	public void setTransactions(List<Transfer> transactions) {
+		this.transactions = transactions;
 	}
 }

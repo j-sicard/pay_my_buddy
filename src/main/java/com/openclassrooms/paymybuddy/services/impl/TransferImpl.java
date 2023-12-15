@@ -5,10 +5,12 @@ import com.openclassrooms.paymybuddy.entities.UserAccount;
 import com.openclassrooms.paymybuddy.repositories.TransferRepository;
 import com.openclassrooms.paymybuddy.repositories.UserAccountRepository;
 import com.openclassrooms.paymybuddy.services.TransferService;
+import com.openclassrooms.paymybuddy.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 
 @Service
@@ -20,21 +22,23 @@ public class TransferImpl implements TransferService {
     @Autowired
     UserAccountRepository userAccountRepository;
 
+
+
     public boolean createTransfer(UserAccount sender, UserAccount receiver, BigDecimal amount, String description) {
         try {
+            BigDecimal costs = Utils.calculCost(amount);
+
             Transfer transfer = new Transfer();
-            transfer.setSender(sender);
-            transfer.setReceiver(receiver);
-            transfer.setAmount(amount);
+            transfer.setUser(sender);
+            transfer.setReceiverFirstName(receiver.getFirstName());
             transfer.setDescription(description);
+            transfer.setAmount(amount);
+            transfer.setCosts(costs);
 
             transferRepository.save(transfer);
 
-            sender.getTransferRecipients().add(receiver);
-            receiver.getTransferSenders().add(sender);
-
-            userAccountRepository.save(sender);
-            userAccountRepository.save(receiver);
+            sender.getTransactions().add(transfer);
+            receiver.getTransactions().add(transfer);
 
             return true;
         } catch (Exception e) {
@@ -43,6 +47,13 @@ public class TransferImpl implements TransferService {
         }
     }
 
-
+    public List<Transfer> getTransfers(UserAccount user){
+        return transferRepository.findByUser(user);
+    }
 
 }
+
+
+
+
+

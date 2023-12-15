@@ -27,5 +27,7 @@ public interface UserAccountService {
 
 	public boolean debitedUser(Long idUser, BigDecimal amount);
 
+	public void saveUser(UserAccount userAccount);
+
 }
 

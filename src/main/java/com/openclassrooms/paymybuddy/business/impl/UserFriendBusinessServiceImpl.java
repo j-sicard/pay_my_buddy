@@ -1,10 +1,12 @@
 package com.openclassrooms.paymybuddy.business.impl;
 
+import com.openclassrooms.paymybuddy.entities.Transfer;
 import com.openclassrooms.paymybuddy.entities.UserAccount;
 import com.openclassrooms.paymybuddy.business.UserFriendBusinessService;
 import com.openclassrooms.paymybuddy.services.TransferService;
 import com.openclassrooms.paymybuddy.services.UserAccountService;
 import com.openclassrooms.paymybuddy.vo.FriendVO;
+import com.openclassrooms.paymybuddy.vo.TransferVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +14,7 @@ import javax.persistence.SecondaryTable;
 import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
@@ -32,6 +35,7 @@ public class UserFriendBusinessServiceImpl implements UserFriendBusinessService 
         UserAccount friend = userAccountService.getUserByEmail(friendEmail);
         if (userId != friend.getId() && !user.getFriends().contains(friend)){
               user.getFriends().add(friend);
+              userAccountService.saveUser(user);
               return "user " + friend.getFirstName() + " has been registered";
           }
           return "An error has occured";
@@ -44,7 +48,7 @@ public class UserFriendBusinessServiceImpl implements UserFriendBusinessService 
 
     @Transactional
     @Override
-    public String debitAccount(long senderID, long receiverID, BigDecimal amount, String description) {
+    public String transferMoneyUserAtUser(long senderID, long receiverID, BigDecimal amount, String description) {
         UserAccount sender = userAccountService.getUser(senderID);
         UserAccount receiver = userAccountService.getUser(receiverID);
 
@@ -71,6 +75,15 @@ public class UserFriendBusinessServiceImpl implements UserFriendBusinessService 
         }
         return userFriends;
     }
+    public List<TransferVO> findAllTransferByUserID(long userID) {
+        List<Transfer> transfers = transferService.getTransfers(userAccountService.getUser(userID));
+        List<TransferVO> transferVOS = new ArrayList<>();
 
+        for (Transfer transfer : transfers) {
+            TransferVO transfervo = new TransferVO(transfer.getId(), transfer.getReceiverFirstName(), transfer.getAmount(), transfer.getDescription());
+            transferVOS.add(transfervo);
+        }
+        return transferVOS;
+    }
 
 }
