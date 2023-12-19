@@ -5,7 +5,7 @@ import com.openclassrooms.paymybuddy.entities.UserAccount;
 import com.openclassrooms.paymybuddy.repositories.TransferRepository;
 import com.openclassrooms.paymybuddy.repositories.UserAccountRepository;
 import com.openclassrooms.paymybuddy.services.TransferService;
-import com.openclassrooms.paymybuddy.utils.Utils;
+import com.openclassrooms.paymybuddy.calculatetax.CalculateTax;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +14,7 @@ import java.util.List;
 
 
 @Service
-public class TransferImpl implements TransferService {
+public class TransferServiceImpl implements TransferService {
 
     @Autowired
     TransferRepository transferRepository;
@@ -26,7 +26,7 @@ public class TransferImpl implements TransferService {
 
     public boolean createTransfer(UserAccount sender, UserAccount receiver, BigDecimal amount, String description) {
         try {
-            BigDecimal costs = Utils.calculCost(amount);
+            BigDecimal costs = CalculateTax.calculCost(amount);
 
             Transfer transfer = new Transfer();
             transfer.setUser(sender);

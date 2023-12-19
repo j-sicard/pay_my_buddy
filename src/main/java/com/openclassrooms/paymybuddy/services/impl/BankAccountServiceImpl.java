@@ -22,16 +22,6 @@ public class BankAccountServiceImpl implements BankAccountService {
 		return account.getBalance();
 	}
 
-	public BankAccount debit(long accountId, BigDecimal amount){
-		BankAccount bankAccount = bankAccountRepository.findById(accountId);
-		BigDecimal balance = bankAccount.getBalance();
-		if (balance.compareTo(amount) >= 0) {
-			balance = balance.subtract(amount);
-			bankAccount.setBalance(balance);
-			bankAccountRepository.save(bankAccount);
-		}
-		return bankAccount;
-	}
 
 	@Override
 	public BigDecimal getBalance(long id) {

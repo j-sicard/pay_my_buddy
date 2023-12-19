@@ -2,10 +2,13 @@
 package com.openclassrooms.paymybuddy.configuration;
 
 import com.nimbusds.jose.jwk.source.ImmutableSecret;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -29,6 +32,9 @@ import javax.crypto.spec.SecretKeySpec;
 @EnableWebSecurity
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
+/*    @Autowired
+    private CustomUserDetailsService customUserDetailsService;
+
 
     private final String jwtKey = "MaoMCfSiuncRcMfraSQLw9Vw4yRRetVc";
 
@@ -38,7 +44,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .antMatcher("/**")
-                /*.authorizeRequests(auth -> auth.anyRequest().authenticated())*/
+                *//*.authorizeRequests(auth -> auth.anyRequest().authenticated())*//*
                 .authorizeRequests().anyRequest().permitAll().and()
 
                 .httpBasic(Customizer.withDefaults());
@@ -55,17 +61,60 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         return NimbusJwtDecoder.withSecretKey(secretKey).macAlgorithm( MacAlgorithm.HS256).build();
     }
 
-    @Bean
+   *//* @Bean
     public UserDetailsService users() {
         UserDetails user = User.builder().username("user").password(passwordEncoder().encode("password")).roles("USER")
                 .build();
         return new InMemoryUserDetailsManager(user);
-    }
+    }*//*
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
-}
+    @Bean
+    public AuthenticationManager authenticationManager(HttpSecurity http, BCryptPasswordEncoder bCryptPasswordEncoder) throws Exception {
+        AuthenticationManagerBuilder authenticationManagerBuilder = http.getSharedObject(AuthenticationManagerBuilder.class);
+        authenticationManagerBuilder.userDetailsService(customUserDetailsService).passwordEncoder(bCryptPasswordEncoder);
+        return authenticationManagerBuilder.build();
+    }*/
 
+    @Autowired
+    private CustomUserDetailsService customUserDetailsService;
+
+    private final String jwtKey = "MaoMCfSiuncRcMfraSQLw9Vw4yRRetVc";
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http
+                .csrf(csrf -> csrf.disable())
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .antMatcher("/**")
+                .authorizeRequests().anyRequest().permitAll().and()
+                .httpBasic(Customizer.withDefaults());
+    }
+
+    @Bean
+    public JwtEncoder jwtEncoder() {
+        return new NimbusJwtEncoder(new ImmutableSecret<>(this.jwtKey.getBytes()));
+    }
+
+    @Bean
+    public JwtDecoder jwtDecoder() {
+        SecretKeySpec secretKey = new SecretKeySpec(this.jwtKey.getBytes(), "HmacSHA256");
+        return NimbusJwtDecoder.withSecretKey(secretKey).macAlgorithm(MacAlgorithm.HS256).build();
+    }
+
+
+    @Bean
+    public BCryptPasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    @Override
+    @Bean
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
+    }
+}

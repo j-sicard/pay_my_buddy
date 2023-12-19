@@ -43,7 +43,7 @@ public class UserAccountServiceImpl implements UserAccountService {
 
 	@Override
 	public UserAccount getUser(long idUser) {
-		return userAccountRepository.findById(idUser).get();
+		return userAccountRepository.findById(idUser).orElse(null);
 	}
 
 	@Override

@@ -1,15 +1,13 @@
 package com.openclassrooms.paymybuddy.services;
-
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import java.math.BigDecimal;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
-import com.openclassrooms.paymybuddy.bo.BankAccountBO;
+import com.openclassrooms.paymybuddy.calculatetax.CalculateTax;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import com.openclassrooms.paymybuddy.AbstractConfigurationTest;
 import com.openclassrooms.paymybuddy.entities.UserAccount;
 
@@ -69,8 +67,29 @@ class UserAccountServiceTest extends AbstractConfigurationTest{
 	}
 
 	@Test
+	void testCreditFailed(){
+		assertEquals(userAccountService.credit( 19L, new BigDecimal(200)), false);
+	}
+
+	@Test
 	void  testGetUserByEmail(){
 		assertTrue(userAccountService.getUserByEmail("testgetUserByEmail@test.fr").getFirstName().compareTo("FirstNamegetUserByEmail") == 0);
 	}
+
+	@Test
+	void testDebitUserSuccess(){
+		assertEquals(userAccountService.debitedUser(20L, new BigDecimal(100)),true);
+	}
+
+	@Test
+	void testDebitUserFailed(){
+		assertEquals(userAccountService.debitedUser(21L, new BigDecimal(500)),false);
+	}
+
+	@Test
+	void testGetFriends() {
+		/*Set<UserAccount> friends = new HashSet<>(22, "testGetFriends@test.fr", "password", "FirstNametest", "LastNametest", 200);*/
+	}
+
 
 }

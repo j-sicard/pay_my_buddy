@@ -75,8 +75,6 @@ INSERT INTO bank_accounts(id, name, balance, id_user_account) VALUES(30, 'Bourso
 INSERT INTO user_accounts(id, email, password, first_name, last_name, balance) VALUES(16, 'testgetUserByEmail@test.fr', 'passwordtestGetUser', 'FirstNamegetUserByEmail', 'LastNamegetUserByEmail', 100);
 INSERT INTO bank_accounts(id, name, balance, id_user_account) VALUES(31, 'Caisse d''epargne', 20, 16);
 INSERT INTO bank_accounts(id, name, balance, id_user_account) VALUES(32, 'Boursorama', 200, 16);
---
--- UserFriendBusinessServiceTest
 -- UserFriendBusinessServiceTest::testAddNewFriend
 INSERT INTO user_accounts(id, email, password, first_name, last_name, balance) VALUES(17, 'testAddNewFriend@test.fr', 'password', 'testName', 'testLastName', 100);
 INSERT INTO bank_accounts(id, name, balance, id_user_account) VALUES(33, 'Caisse d''epargne', 20, 17);
@@ -84,3 +82,19 @@ INSERT INTO bank_accounts(id, name, balance, id_user_account) VALUES(34, 'Bourso
 INSERT INTO user_accounts(id, email, password, first_name, last_name, balance) VALUES(18, 'NewFriend@test.fr', 'password', 'NewFriend', 'testLastName', 100);
 INSERT INTO bank_accounts(id, name, balance, id_user_account) VALUES(35, 'Caisse d''epargne', 20, 18);
 INSERT INTO bank_accounts(id, name, balance, id_user_account) VALUES(36, 'Boursorama', 200, 18);
+-- UserAccountServiceTest::testCreditFailed
+--
+-- ID 19 used for this test, don't use it for other test.
+--
+-- UserAccountServiceTest::testDebitUserSuccess
+INSERT INTO user_accounts(id, email, password, first_name, last_name, balance) VALUES(20, 'testDebitUserSuccess@test.fr', 'password', 'FirstNametest', 'LastNametest', 200);
+INSERT INTO bank_accounts(id, name, balance, id_user_account) VALUES(37, 'Caisse d''epargne', 200, 20);
+INSERT INTO bank_accounts(id, name, balance, id_user_account) VALUES(38, 'Boursorama', 200, 20);
+-- UserAccountServiceTest::testDebitUserFailed
+--
+-- ID 21 used for this test, don't use it for other test.
+--
+-- TransferTest
+-- TransferTest::testGetTransfers
+INSERT INTO user_accounts(id, email, password, first_name, last_name, balance) VALUES(22, 'testDebitUserSuccess@test.fr', 'password', 'FirstNametest', 'LastNametest', 200);
+INSERT INTO user_accounts(id, email, password, first_name, last_name, balance) VALUES(23, 'testDebitUserSuccess@test.fr', 'password', 'FirstNametest', 'LastNametest', 200);
