@@ -2,14 +2,10 @@
 package com.openclassrooms.paymybuddy.controllers;
 
 import com.openclassrooms.paymybuddy.configuration.JWTService;
-import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.oauth2.core.OAuth2AuthenticatedPrincipal;
-import org.springframework.security.oauth2.jwt.Jwt;
-import org.springframework.security.oauth2.jwt.JwtDecoder;
 
 import org.springframework.web.bind.annotation.*;
 
@@ -19,17 +15,11 @@ import java.util.Map;
 public class LoginController {
 
     private final JWTService jwtService;
-    private final JwtDecoder jwtDecoder;
 
-    public LoginController(JWTService jwtService, JwtDecoder jwtDecoder) {
+    public LoginController(JWTService jwtService) {
         this.jwtService = jwtService;
-        this.jwtDecoder = jwtDecoder;
     }
 
-    @GetMapping("/")
-    public String getResource() {
-        return "a value... ";
-    }
 
     @PostMapping("/login")
     public String getToken(Authentication authentication) {
@@ -42,6 +32,11 @@ public class LoginController {
     @GetMapping("/getUserInfo")
     public ResponseEntity<?> getUserInfo(@RequestHeader("Authorization") String token) {
         try {
+            // Retirez le préfixe "Bearer " si présent
+            if (token.startsWith("Bearer ")) {
+                token = token.substring(7);
+            }
+
             Map<String, Object> userInfo = jwtService.extractUserInfo(token);
             return new ResponseEntity<>(userInfo, HttpStatus.OK);
         } catch (JwtException e) {
@@ -51,7 +46,6 @@ public class LoginController {
             return new ResponseEntity<>("An error occurred while processing the token", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
 }
 
 
