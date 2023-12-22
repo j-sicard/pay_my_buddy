@@ -49,4 +49,7 @@ public class TransferBusinessServiceImpl implements TransferBusinessService {
 	};
 
 
+	public long getuserIDbyEmail(String email){
+		return userAccountService.getUserByEmail(email).getId();
+	}
 }

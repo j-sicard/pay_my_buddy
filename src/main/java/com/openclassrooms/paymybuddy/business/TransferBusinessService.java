@@ -14,7 +14,7 @@ public interface TransferBusinessService {
 
 	public UserVO getProfileUserByID(long idUser);
 
-
+	public long getuserIDbyEmail(String email);
 
 }
 
