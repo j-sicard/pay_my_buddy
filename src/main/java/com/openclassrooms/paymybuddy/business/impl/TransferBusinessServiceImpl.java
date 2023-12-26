@@ -13,6 +13,8 @@ import com.openclassrooms.paymybuddy.entities.UserAccount;
 import com.openclassrooms.paymybuddy.services.BankAccountService;
 import com.openclassrooms.paymybuddy.services.UserAccountService;
 
+import javax.transaction.Transactional;
+
 @Service
 public class TransferBusinessServiceImpl implements TransferBusinessService {
 	
@@ -21,26 +23,43 @@ public class TransferBusinessServiceImpl implements TransferBusinessService {
 	
 	@Autowired
 	private BankAccountService bankAccountService;
-	
+
+	@Transactional
 	public UserAccountBO withdrawAccountToBank(long idUser, BigDecimal amount, long bankAccountId) {
-		BigDecimal balance = userAccountService.getBalance(idUser);
-		UserAccount userAccount = userAccountService.withdraw(idUser, amount);
-		if(userAccount.getBalance().compareTo(balance) == -1) {
-			bankAccountService.credit(bankAccountId, amount);
+		try {
+			BigDecimal balance = userAccountService.getBalance(idUser);
+			UserAccount userAccount = userAccountService.withdraw(idUser, amount);
+
+			if (userAccount.getBalance().compareTo(balance) < 0) {
+				bankAccountService.credit(bankAccountId, amount);
+			}
+			return new UserAccountBO(userAccount.getId(), userAccount.getEmail(), userAccount.getFirstName(), userAccount.getLastName(), userAccount.getBalance());
+		} catch (Exception e) {
+			throw new RuntimeException("Withdrawal operation failed", e);
 		}
-		return new UserAccountBO(userAccount.getId(), userAccount.getEmail(), userAccount.getFirstName(), userAccount.getLastName(), userAccount.getBalance());
 	}
+	@Transactional
 	public UserAccountBO withdrawBankToAccount(long idUser, BigDecimal amount, long bankAccountId) {
-		BigDecimal balance = bankAccountService.getBalance(bankAccountId);
-		BankAccount bankAccount = bankAccountService.withdrawForBank(bankAccountId, amount);
-		if (bankAccount.getBalance().compareTo(balance) == -1) {
-			userAccountService.credit(idUser, amount);
+		try {
+			BigDecimal balance = bankAccountService.getBalance(bankAccountId);
+			BankAccount bankAccount = bankAccountService.withdrawForBank(bankAccountId, amount);
+
+			if (bankAccount.getBalance().compareTo(balance) < 0) {
+				userAccountService.credit(idUser, amount);
+			}
+			UserAccount userAccount = userAccountService.getUser(idUser);
+			return new UserAccountBO(
+					userAccount.getId(),
+					userAccount.getEmail(),
+					userAccount.getFirstName(),
+					userAccount.getLastName(),
+					userAccount.getBalance()
+			);
+		} catch (Exception e) {
+			throw new RuntimeException("An error occurred while transferring money.", e);
 		}
-		UserAccount userAccount = userAccountService.getUser(idUser);
-		return new UserAccountBO(userAccount.getId(), userAccount.getEmail(), userAccount.getFirstName(),
-				userAccount.getLastName(), userAccount.getBalance()
-		);
 	}
+
 
 	public UserVO getProfileUserByID(long idUser){
 		UserAccount userAccount = userAccountService.getUser(idUser);

@@ -16,12 +16,16 @@ public class BankAccountServiceImpl implements BankAccountService {
 	private BankAccountRepository bankAccountRepository;
 
 	public BigDecimal credit(long accountId, BigDecimal amount) {
-		BankAccount account = bankAccountRepository.findById(accountId);
-		account.setBalance(account.getBalance().add(amount));
-		bankAccountRepository.save(account);
-		return account.getBalance();
+		try {
+			BankAccount account = bankAccountRepository.findById(accountId);
+			account.setBalance(account.getBalance().add(amount));
+			bankAccountRepository.save(account);
+			return account.getBalance();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new RuntimeException("Error crediting the bank account.", e);
+		}
 	}
-
 
 	@Override
 	public BigDecimal getBalance(long id) {
