@@ -72,6 +72,13 @@ public class LoginController {
             return new ResponseEntity<>("An error occurred while processing the token", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @GetMapping("/")
+    public String getgihub() {
+        return  "bite";
+    }
 }
 
 
+/*
+http://localhost:8080/login/oauth2/code/github*/

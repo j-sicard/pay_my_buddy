@@ -40,8 +40,7 @@ public class JWTService {
             Jwt decodedJwt = this.jwtDecoder.decode(token);
             return decodedJwt.getClaims();
         } catch (JwtException e) {
-            throw new RuntimeException("\n" +
-                    "Error extracting token information", e);
+            throw new RuntimeException("Error extracting token information", e);
         }
     }
 }
