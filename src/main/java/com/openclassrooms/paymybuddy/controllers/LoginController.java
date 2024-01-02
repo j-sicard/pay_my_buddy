@@ -13,11 +13,10 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 
-import org.springframework.util.MultiValueMap;
+import org.springframework.security.oauth2.client.OAuth2AuthorizedClientService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
-
 @RestController
 @RequestMapping("/auth")
 @CrossOrigin(origins = "http://localhost:3000")
@@ -26,14 +25,16 @@ public class LoginController {
     @Autowired
     TransferBusinessService transferBusinessService;
 
-
-
     private final AuthenticationManager authenticationManager;
+
     private final JWTService jwtService;
 
-    public LoginController(AuthenticationManager authenticationManager, JWTService jwtService) {
+    private OAuth2AuthorizedClientService authorizedClientService;
+
+    public LoginController(AuthenticationManager authenticationManager, JWTService jwtService, OAuth2AuthorizedClientService authorizedClientService) {
         this.authenticationManager = authenticationManager;
         this.jwtService = jwtService;
+        this.authorizedClientService = authorizedClientService;
     }
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(LoginController.class.getName());
@@ -41,19 +42,14 @@ public class LoginController {
     @PostMapping(value = "/login", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> getToken(@RequestBody AuthRequestFO authRequest) {
         try {
-            String username = authRequest.getUsername();
-            String password = authRequest.getPassword();
-
             Authentication authentication = authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(username, password)
+                    new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword())
             );
-            String token = jwtService.generateToken(authentication);
-            return ResponseEntity.ok(token);
+            return ResponseEntity.ok(jwtService.generateToken(authentication));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Échec de l'authentification");
         }
     }
-
 
     @GetMapping("/getUserInfo")
     public ResponseEntity<?> getUserInfo(@RequestHeader("Authorization") String token) {
@@ -72,13 +68,6 @@ public class LoginController {
             return new ResponseEntity<>("An error occurred while processing the token", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
-    @GetMapping("/")
-    public String getgihub() {
-        return  "bite";
-    }
 }
 
 
-/*
-http://localhost:8080/login/oauth2/code/github*/
