@@ -9,3 +9,6 @@
 
 
 ![moderl physique des données](https://github.com/j-sicard/pay_my_buddy/assets/106332407/cde583bc-c8bf-4884-93a5-2b974095013d)
+
+
+![ligne](https://github.com/j-sicard/pay_my_buddy/assets/106332407/39c9fc7c-b2da-44be-959e-4f649a83254d)
