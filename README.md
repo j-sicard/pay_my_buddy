@@ -16,3 +16,12 @@
 
 
 ![ligne](https://github.com/j-sicard/pay_my_buddy/assets/106332407/39c9fc7c-b2da-44be-959e-4f649a83254d)
+
+
+![title maquette](https://github.com/j-sicard/pay_my_buddy/assets/106332407/6e40f94b-02ff-412a-b146-476ed4204c35)
+
+
+![maquette](https://github.com/j-sicard/pay_my_buddy/assets/106332407/cdec9e46-1bbc-4a15-a36e-ad0695d00181)
+
+
+![maquette2](https://github.com/j-sicard/pay_my_buddy/assets/106332407/559349d9-631d-4c52-bee7-e74fa91179ed)
