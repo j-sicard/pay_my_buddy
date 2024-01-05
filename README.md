@@ -2,3 +2,4 @@
 
 Livrables: 
 ![modèle physique de données](https://github.com/j-sicard/pay_my_buddy/assets/106332407/f02bca4f-dc85-4151-bf18-80c600c0670e)
+![text1](https://github.com/j-sicard/pay_my_buddy/assets/106332407/3a9724df-b4e4-47bd-a07d-be4360097455)
