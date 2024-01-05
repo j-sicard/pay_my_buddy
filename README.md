@@ -8,7 +8,7 @@
 ![ligne](https://github.com/j-sicard/pay_my_buddy/assets/106332407/e47024d7-cbc8-4533-926e-d6d87829ae89)
 
 
-![diagramme de classe](https://github.com/j-sicard/pay_my_buddy/assets/106332407/a225c627-acd3-407b-811f-b0539e1fa8e1)
+![diagramme de classe](https://github.com/j-sicard/pay_my_buddy/assets/106332407/93d2273c-d826-4378-b912-7007b8f0556d)
 
 
 ![ligne](https://github.com/j-sicard/pay_my_buddy/assets/106332407/3612c8a5-1974-47ba-adb1-88e6bed1fa7e)
