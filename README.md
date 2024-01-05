@@ -1,8 +1,6 @@
 ![Sans titre](https://github.com/j-sicard/pay_my_buddy/assets/106332407/46a4d27b-fbdd-4594-a853-ee1cb2f6f6a3)
 
-
-
-![text1](https://github.com/j-sicard/pay_my_buddy/assets/106332407/1944265e-9e05-40ad-a5f4-87b88c41b609)
+![text1](https://github.com/j-sicard/pay_my_buddy/assets/106332407/4fa8a8ac-7974-4416-b1ef-6b40c00080c9)
 
 
 ![ligne](https://github.com/j-sicard/pay_my_buddy/assets/106332407/e47024d7-cbc8-4533-926e-d6d87829ae89)
