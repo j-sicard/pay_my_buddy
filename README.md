@@ -17,36 +17,8 @@
 
 ![ligne](https://github.com/j-sicard/pay_my_buddy/assets/106332407/39c9fc7c-b2da-44be-959e-4f649a83254d)
 
--- Création de la table user_accounts
-CREATE TABLE user_accounts (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    email VARCHAR(255) NOT NULL,
-    password VARCHAR(255) NOT NULL,
-    first_name VARCHAR(255),
-    last_name VARCHAR(255),
-    balance DECIMAL(19, 2) DEFAULT 0.00
-);
 
--- Création de la table bank_accounts
-CREATE TABLE bank_accounts (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
-    balance DECIMAL(19, 2) DEFAULT 0.00,
-    id_user_account INT,
-    FOREIGN KEY (id_user_account) REFERENCES user_accounts(id)
-);
-
--- Création de la table transfers
-CREATE TABLE transfers (
-    transfer_id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id INT,
-    receiver_first_name VARCHAR(255),
-    description VARCHAR(255),
-    amount DECIMAL(19, 2),
-    costs DECIMAL(19, 2),
-    FOREIGN KEY (user_id) REFERENCES user_accounts(id)
-);
-
+![data](https://github.com/j-sicard/pay_my_buddy/assets/106332407/7fddbeb0-fb56-4692-a182-0d3275c715ca)
 
 
 ![ligne](https://github.com/j-sicard/pay_my_buddy/assets/106332407/39c9fc7c-b2da-44be-959e-4f649a83254d)
