@@ -1,6 +1,5 @@
 package com.openclassrooms.paymybuddy.business;
 
-import com.openclassrooms.paymybuddy.entities.Transfer;
 import com.openclassrooms.paymybuddy.entities.UserAccount;
 import com.openclassrooms.paymybuddy.vo.FriendVO;
 import com.openclassrooms.paymybuddy.vo.TransferVO;
@@ -21,4 +20,5 @@ public interface UserFriendBusinessService {
     public List<FriendVO> getAllFriends(long userID);
 
     public List<TransferVO> findAllTransferByUserID(long userID);
+
 }

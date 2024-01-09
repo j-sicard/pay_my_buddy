@@ -3,7 +3,6 @@ package com.openclassrooms.paymybuddy.services.impl;
 import com.openclassrooms.paymybuddy.entities.Transfer;
 import com.openclassrooms.paymybuddy.entities.UserAccount;
 import com.openclassrooms.paymybuddy.repositories.TransferRepository;
-import com.openclassrooms.paymybuddy.repositories.UserAccountRepository;
 import com.openclassrooms.paymybuddy.services.TransferService;
 import com.openclassrooms.paymybuddy.calculatetax.CalculateTax;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,11 +17,6 @@ public class TransferServiceImpl implements TransferService {
 
     @Autowired
     TransferRepository transferRepository;
-
-    @Autowired
-    UserAccountRepository userAccountRepository;
-
-
 
     public boolean createTransfer(UserAccount sender, UserAccount receiver, BigDecimal amount, String description) {
         try {
@@ -50,7 +44,6 @@ public class TransferServiceImpl implements TransferService {
     public List<Transfer> getTransfers(UserAccount user){
         return transferRepository.findByUser(user);
     }
-
 }
 
 

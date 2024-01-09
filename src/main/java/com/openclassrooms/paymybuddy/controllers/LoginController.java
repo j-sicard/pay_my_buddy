@@ -4,6 +4,7 @@ package com.openclassrooms.paymybuddy.controllers;
 import com.openclassrooms.paymybuddy.business.TransferBusinessService;
 import com.openclassrooms.paymybuddy.configuration.JWTService;
 import com.openclassrooms.paymybuddy.fo.AuthRequestFO;
+import com.openclassrooms.paymybuddy.fo.RegisterUserFO;
 import io.jsonwebtoken.JwtException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -67,6 +68,13 @@ public class LoginController {
             logger.log(java.util.logging.Level.SEVERE, "An error occurred while processing the token", e);
             return new ResponseEntity<>("An error occurred while processing the token", HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+
+
+    @PostMapping("/register")
+    public ResponseEntity<String> registerUser(@RequestBody RegisterUserFO registerUserFO) {
+        String userId = transferBusinessService.registerUser(registerUserFO.getEmail(), registerUserFO.getPassword());
+           return ResponseEntity.ok(userId);
     }
 }
 

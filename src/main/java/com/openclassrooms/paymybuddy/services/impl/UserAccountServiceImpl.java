@@ -1,16 +1,14 @@
 package com.openclassrooms.paymybuddy.services.impl;
 
 import java.math.BigDecimal;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 import javax.transaction.Transactional.TxType;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.openclassrooms.paymybuddy.bo.BankAccountBO;
@@ -106,6 +104,23 @@ public class UserAccountServiceImpl implements UserAccountService {
 		userAccountRepository.save(userAccount);
 	}
 
+	@Autowired
+	BCryptPasswordEncoder passwordEncoder;
+	public void registerUser(String email,String password){
 
+		UserAccount newUser = new UserAccount();
+		newUser.setEmail(email);
+		newUser.setPassword(passwordEncoder.encode(email));
+		userAccountRepository.save(newUser);
+	}
+
+	public List<String> getAllEmail(){
+		List<UserAccount> users = (List<UserAccount>) userAccountRepository.findAll();
+		List<String> emails = new ArrayList<>();
+		for (UserAccount user : users){
+			emails.add(user.getEmail());
+		}
+		return emails;
+	}
 
 }

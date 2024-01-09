@@ -26,7 +26,7 @@ public class BankAccount {
 	private String name;
 
 	@Column()
-	private BigDecimal balance;
+	private BigDecimal balance = BigDecimal.ZERO;
 
 	@JsonBackReference
 	@ManyToOne()

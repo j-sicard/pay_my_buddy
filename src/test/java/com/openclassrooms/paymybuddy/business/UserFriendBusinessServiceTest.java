@@ -16,11 +16,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import static net.bytebuddy.matcher.ElementMatchers.any;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 
 class UserFriendBusinessServiceTest extends AbstractConfigurationTest {
@@ -60,7 +57,7 @@ class UserFriendBusinessServiceTest extends AbstractConfigurationTest {
 
     @Test
     void testGetAllFriends() {
-        // Simulez le comportement du service pour renvoyer ces amis
+        // Simule le comportement du service pour renvoyer ces amis
         Set<UserAccount> friends = new HashSet<>();
         friends.add(friend1);
         friends.add(friend2);
@@ -83,7 +80,7 @@ class UserFriendBusinessServiceTest extends AbstractConfigurationTest {
 
     @Test
     void testGetFriendByID() {
-        // Simulez le comportement du service pour renvoyer cet ami
+        // Simule le comportement du service pour renvoyer cet ami
         when(userAccountService.getFriendWithID(userId, friend1.getId())).thenReturn(friend1);
 
         UserAccount returnedFriend = userFriendBusinessService.getFriendByID(userId, friend1.getId());
@@ -113,31 +110,6 @@ class UserFriendBusinessServiceTest extends AbstractConfigurationTest {
         assertEquals("user John has been registered", result);
     }
 
-   /* @Test
-    void testTransferMoneyUserAtUser_SuccessfulTransfer() {
-        long senderID = 1L;
-        long receiverID = 2L;
-        BigDecimal amount = new BigDecimal("50.0");
-
-        UserAccount sender = new UserAccount();
-        sender.setId(senderID);
-        sender.setBalance(new BigDecimal("100.0"));
-
-        UserAccount receiver = new UserAccount();
-        receiver.setId(receiverID);
-
-        // Configurer le comportement du service pour renvoyer les utilisateurs factices
-        when(userAccountService.getUser(senderID)).thenReturn(sender);
-        when(userAccountService.getUser(receiverID)).thenReturn(receiver);
-        when(userAccountService.debitedUser(eq(senderID), eq(amount))).thenReturn(true);
-        when(userAccountService.credit(anyLong(), (BigDecimal) any())).thenReturn(true);
-
-// Appeler la méthode que vous testez
-        String result = userFriendBusinessService.transferMoneyUserAtUser(senderID, receiverID, amount, "Test transfer");
-
-// Vérifier le résultat
-        assertEquals("operation carried out successfully", result);
-    }*/
 
     @Test
     void testTransferMoneyUserAtUser_InsufficientBalance() {

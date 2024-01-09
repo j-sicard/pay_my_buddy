@@ -1,8 +1,11 @@
 package com.openclassrooms.paymybuddy.business.impl;
 
 import java.math.BigDecimal;
+import java.util.List;
 
+import com.openclassrooms.paymybuddy.bo.BankAccountBO;
 import com.openclassrooms.paymybuddy.entities.BankAccount;
+import com.openclassrooms.paymybuddy.repositories.UserAccountRepository;
 import com.openclassrooms.paymybuddy.vo.UserVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -71,4 +74,25 @@ public class TransferBusinessServiceImpl implements TransferBusinessService {
 	public long getuserIDbyEmail(String email){
 		return userAccountService.getUserByEmail(email).getId();
 	}
+
+	public String registerUser(String email, String password) {
+		try {
+			List<String> allEmails = userAccountService.getAllEmail();
+
+			if (!allEmails.contains(email)) {
+				userAccountService.registerUser(email, password);
+				return "User registered successfully!";
+			} else {
+				return "Email already exists. Please choose a different email.";
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "An error occurred while registering the user.";
+		}
+	}
+
+	public  List<BankAccountBO> getbankAccountById(long id){
+		return userAccountService.findBankAccounts(id);
+	}
+
 }

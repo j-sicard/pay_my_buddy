@@ -42,7 +42,6 @@ public class TransferController {
     @PostMapping("/paymybuddy")
     public ResponseEntity<Map<String, String>> payMyBuddy(@RequestBody UserToUserTranferFO userToUserTranferFO) {
         try {
-
             String result = userFriendBusinessService.transferMoneyUserAtUser(
                     userToUserTranferFO.getSenderID(),
                     userToUserTranferFO.getReceiverID(),

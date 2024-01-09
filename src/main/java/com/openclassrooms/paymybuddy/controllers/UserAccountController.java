@@ -25,9 +25,7 @@ public class UserAccountController {
 	
 	@Autowired
 	private TransferBusinessService transferBusinessService;
-	
-	@Autowired
-	private UserAccountService userAccountService;
+
 
 	@PostMapping("/withdraw")
 	public UserAccountBO withdrawAccountToBank(@RequestBody WithdrawInfoFO withdrawInfo) {
@@ -38,7 +36,7 @@ public class UserAccountController {
 	
 	@GetMapping("/{id}/banks")
 	public List<BankAccountBO> listBankAccounts(@PathVariable("id") long id) {
-		return userAccountService.findBankAccounts(id);
+		return transferBusinessService.getbankAccountById(id);
 	}
 
 	@PostMapping("/enhanced")

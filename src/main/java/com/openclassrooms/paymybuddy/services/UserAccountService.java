@@ -29,7 +29,9 @@ public interface UserAccountService {
 
 	public void saveUser(UserAccount userAccount);
 
+    public void registerUser(String email,String password);
 
+	public List<String> getAllEmail();
 
 }
 

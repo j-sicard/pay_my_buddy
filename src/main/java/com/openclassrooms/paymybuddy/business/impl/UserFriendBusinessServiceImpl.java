@@ -1,5 +1,6 @@
 package com.openclassrooms.paymybuddy.business.impl;
 
+import com.openclassrooms.paymybuddy.bo.BankAccountBO;
 import com.openclassrooms.paymybuddy.entities.Transfer;
 import com.openclassrooms.paymybuddy.entities.UserAccount;
 import com.openclassrooms.paymybuddy.business.UserFriendBusinessService;

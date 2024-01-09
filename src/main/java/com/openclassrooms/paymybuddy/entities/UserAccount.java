@@ -33,8 +33,9 @@ public class UserAccount {
 	@Column(name = "last_name")
 	private String lastName;
 
+
 	@Column()
-	private BigDecimal balance;
+	private BigDecimal balance = BigDecimal.ZERO;
 
 	@OneToMany(mappedBy = "userAccount")
 	private List<BankAccount> bankAccounts;
