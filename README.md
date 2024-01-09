@@ -18,6 +18,9 @@
 ![ligne](https://github.com/j-sicard/pay_my_buddy/assets/106332407/39c9fc7c-b2da-44be-959e-4f649a83254d)
 
 
+![titledata](https://github.com/j-sicard/pay_my_buddy/assets/106332407/d5b6da4a-de44-4963-8ce3-a4c0109e428c)
+
+
 ![data](https://github.com/j-sicard/pay_my_buddy/assets/106332407/7fddbeb0-fb56-4692-a182-0d3275c715ca)
 
 
