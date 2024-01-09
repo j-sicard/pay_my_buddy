@@ -1,11 +1,8 @@
 package com.openclassrooms.paymybuddy.services;
 
 import static org.junit.Assert.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.math.BigDecimal;
-
-import com.openclassrooms.paymybuddy.entities.BankAccount;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 

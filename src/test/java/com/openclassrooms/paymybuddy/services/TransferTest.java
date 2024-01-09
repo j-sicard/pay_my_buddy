@@ -3,7 +3,6 @@ package com.openclassrooms.paymybuddy.services;
 
 import com.openclassrooms.paymybuddy.AbstractConfigurationTest;
 
-import com.openclassrooms.paymybuddy.calculatetax.CalculateTax;
 import com.openclassrooms.paymybuddy.entities.Transfer;
 import com.openclassrooms.paymybuddy.entities.UserAccount;
 import com.openclassrooms.paymybuddy.repositories.TransferRepository;

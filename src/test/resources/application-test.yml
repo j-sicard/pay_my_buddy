@@ -5,7 +5,7 @@ spring:
     username: sa
     password: sa
     initialization-mode: always
-  jpa: 
+  jpa:
     database-platform: org.hibernate.dialect.H2Dialect
     hibernate.ddl-auto: create-drop
     show-sql: true
